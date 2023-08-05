@@ -25,12 +25,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page.
 streamlit.dataframe(fruits_to_show)
 
-#Add a button to load the fruit.
-if streamlit.button('Get Fruit List'):
-    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-    my_data_rows = get_fruit_load_list()
-    my_cnx.close()
-    streamlit.dataframe(my_data_rows)
+
     
 #New section to display Fruityvice API response
 def get_fruityvice_data(this_fruit_choice):
@@ -61,7 +56,13 @@ if streamlit.button("Add a fruit to the list:"):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     back_from_function = insert_row_snowflake(add_my_fruit)
     streamlit.text(back_from_function)
-    
+
+#Add a button to load the fruit.
+if streamlit.button('Get Fruit List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_rows = get_fruit_load_list()
+    my_cnx.close()
+    streamlit.dataframe(my_data_rows)
 
 
 #don't run anything past here while we trubleshoot
